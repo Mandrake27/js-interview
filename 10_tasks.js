@@ -1,21 +1,20 @@
 // const getPrimes = (num) => {
 //   const result = [];
-//   for (let i = 2; i <= num; i++) {
-//     let isPrimary = true;
+//   for (let i = 2; i < num; i++) {
+//     let isPrime = true;
 //     for (let j = 2; j < i; j++) {
-//       const isNotPrimary = i % j === 0;
-//       if (isNotPrimary) {
-//         isPrimary = false;
+//       if (i % j === 0) {
+//         isPrime = false;
 //         break;
 //       }
 //     }
-//     if (isPrimary) {
+//     if (isPrime) {
 //       result.push(i);
 //     }
 //   }
 //   return result;
 // }
-//
+
 // console.log(getPrimes(100))
 
 // №2 - Написать функцию, проверяющую правильно расставленные скобки;
@@ -224,26 +223,85 @@ function getSum(obj) {
 console.log(getSum(obj));
 */
 
-const call = (arr) => {
-  let current = 0;
-  let best = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > 0) {
+// const call = (arr) => {
+//   let current = 0;
+//   let best = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > 0) {
+//       current++;
+//       best = Math.max(...[current, best]);
+//     } else {
+//       current = 0;
+//     }
+//   }
+//   return best;
+// }
+//
+// const a = call([1, 1, 0, 0, 1, 1]);
+// const b = call([1, 1, 1, 0, 1, 1, 1, 1]);
+// const c = call([1, 1, 1, 1, 1, 1]);
+// const d = call([0, 0, 1]);
+//
+// console.log(a);
+// console.log(b);
+// console.log(c);
+// console.log(d);
+
+// const cloneObj = (obj) => {
+//   let clone = Object.assign({}, obj);
+//   for (let key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       if (typeof obj[key] === 'object') {
+//         clone[key] = cloneObj(obj[key]);
+//       }
+//     }
+//   }
+//   return clone;
+// }
+
+// const obj = {
+//   name: 'Miras',
+//   sizes: {
+//     height: 170,
+//     width: 50,
+//   },
+// };
+
+// const clone = cloneObj(obj);
+// clone.sizes.height = 180;
+// console.log(clone.sizes.height); // 180
+// console.log(obj.sizes.height); // 170
+
+// Более простое решение:
+// const clone2 = JSON.parse(JSON.stringify(obj));
+// полностью скопированный объект
+
+let user = {
+  firstName: "Вася",
+  sayHi() {
+    console.log(`Привет, ${this.firstName}!`);
+  }
+};
+
+setTimeout(user.sayHi.bind(user), 1000);
+
+const counter = (str) => {
+  let current = 1;
+  let result = ''
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === str[i + 1]) {
       current++;
-      best = Math.max(...[current, best]);
+    } else if (current !== 1) {
+      result += str[i];
+      result += current;
+      current = 1;
     } else {
-      current = 0;
+      result += str[i];
     }
   }
-  return best;
+  return result;
 }
 
-const a = call([1, 1, 0, 0, 1, 1]);
-const b = call([1, 1, 1, 0, 1, 1, 1, 1]);
-const c = call([1, 1, 1, 1, 1, 1]);
-const d = call([0, 0, 1]);
+const a = counter('AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB')
 
 console.log(a);
-console.log(b);
-console.log(c);
-console.log(d);
